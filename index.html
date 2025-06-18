@@ -346,6 +346,64 @@
     <img id="preview" src="" alt="Preview will appear here" style="display:none;" />
   </section>
 
+  <section style="padding: 40px; background-color: #111; color: gold; border-radius: 15px; max-width: 700px; margin: 50px auto;">
+  <h2 style="text-align: center; margin-bottom: 25px;">🎨 Photo Filter Tool</h2>
+
+  <input type="file" id="filterUpload" accept="image/*" style="display: block; margin: 0 auto 20px;" />
+
+  <div style="text-align: center; margin-bottom: 20px;">
+    <label style="margin-right: 10px;">
+      <input type="radio" name="filter" value="none" checked /> None
+    </label>
+    <label style="margin-right: 10px;">
+      <input type="radio" name="filter" value="grayscale(100%)" /> Grayscale
+    </label>
+    <label style="margin-right: 10px;">
+      <input type="radio" name="filter" value="sepia(100%)" /> Sepia
+    </label>
+    <label style="margin-right: 10px;">
+      <input type="radio" name="filter" value="brightness(150%)" /> Brightness
+    </label>
+    <label style="margin-right: 10px;">
+      <input type="radio" name="filter" value="contrast(200%)" /> Contrast
+    </label>
+    <label>
+      <input type="radio" name="filter" value="invert(100%)" /> Invert
+    </label>
+  </div>
+
+  <div style="text-align: center;">
+    <img id="filterImage" src="" alt="Upload to apply filters" style="max-width: 100%; border-radius: 10px; box-shadow: 0 0 15px gold;" />
+  </div>
+</section>
+
+<script>
+  const filterUpload = document.getElementById('filterUpload');
+  const filterImage = document.getElementById('filterImage');
+  const filterRadios = document.querySelectorAll('input[name="filter"]');
+
+  // When user uploads an image
+  filterUpload.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      filterImage.src = reader.result;
+      filterImage.style.filter = 'none';
+      // Reset filter radio buttons to none
+      document.querySelector('input[name="filter"][value="none"]').checked = true;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // When user changes filter
+  filterRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      filterImage.style.filter = radio.value;
+    });
+  });
+</script>
+
   <section id="filters-section">
     <h2>Apply Filters</h2>
     <div class="filter-buttons">
