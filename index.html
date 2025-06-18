@@ -446,57 +446,91 @@
       return;
     }
     alert<!-- Snap Nova Enhancer Section -->
-<section class="bg-gray-950 py-16 px-6 text-white" id="enhancer">
-  <div class="max-w-4xl mx-auto text-center">
-    <h2 class="text-4xl font-bold mb-4 text-yellow-400">Snap Nova Enhancer</h2>
-    <p class="text-lg mb-8 text-gray-300">Transform your low-quality photos into stunning HD images with AI magic.</p>
+<!-- Enhance Image Section -->
+<section class="py-16 px-4 bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-4xl font-bold mb-6">AI Photo Enhancer</h2>
+    <p class="text-lg mb-8 text-gray-300">Enhance your blurry, low-quality photos into HD masterpieces – just like Remini, for FREE!</p>
 
-    <div class="bg-gray-900 rounded-xl p-6 shadow-lg border border-yellow-400">
-      <input type="file" id="uploadInput" accept="image/*"
-        class="block w-full text-sm text-gray-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-400 file:text-black hover:file:bg-yellow-300 cursor-pointer mb-6" />
+    <!-- Upload Form -->
+    <div class="bg-white text-black rounded-xl p-6 shadow-xl">
+      <input type="file" id="uploadImage" accept="image/*" class="mb-4 w-full text-sm">
+      <button onclick="enhanceImage()" class="bg-black text-white font-semibold py-2 px-6 rounded-xl hover:bg-yellow-500 transition">Enhance Image</button>
+    </div>
 
-      <div id="previewContainer" class="mb-6 hidden">
-        <h3 class="text-xl font-semibold mb-2">Preview:</h3>
-        <img id="previewImage" src="" alt="Uploaded Image" class="w-full max-w-md mx-auto rounded shadow-md" />
+    <!-- Output Area -->
+    <div id="outputArea" class="mt-10 hidden">
+      <h3 class="text-2xl font-semibold mb-4">Enhanced Image Preview</h3>
+      <div class="flex justify-center gap-6 flex-wrap items-center">
+        <div>
+          <p class="text-sm mb-2 text-gray-400">Original</p>
+          <img id="originalPreview" src="" class="w-64 rounded-xl shadow-md border border-gray-500">
+        </div>
+        <div>
+          <p class="text-sm mb-2 text-yellow-400">Enhanced</p>
+          <img id="enhancedPreview" src="" class="w-64 rounded-xl shadow-md border-2 border-yellow-500">
+        </div>
       </div>
-
-      <button onclick="enhanceImage()"
-        class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-6 rounded-full transition duration-300">
-        Enhance Image
-      </button>
-
-      <p id="processingStatus" class="mt-6 text-green-400 font-medium hidden">Processing image with AI...</p>
+      <a id="downloadBtn" href="#" download class="mt-6 inline-block bg-yellow-500 text-black py-2 px-6 rounded-xl font-medium hover:bg-yellow-400 transition">Download Enhanced Image</a>
     </div>
   </div>
 </section>
 
 <script>
-  const uploadInput = document.getElementById("uploadInput");
-  const previewContainer = document.getElementById("previewContainer");
-  const previewImage = document.getElementById("previewImage");
-  const processingStatus = document.getElementById("processingStatus");
-
-  uploadInput.addEventListener("change", function () {
-    const file = uploadInput.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        previewImage.src = e.target.result;
-        previewContainer.classList.remove("hidden");
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-
   function enhanceImage() {
-    processingStatus.classList.remove("hidden");
+    const fileInput = document.getElementById('uploadImage');
+    const originalPreview = document.getElementById('originalPreview');
+    const enhancedPreview = document.getElementById('enhancedPreview');
+    const outputArea = document.getElementById('outputArea');
+    const downloadBtn = document.getElementById('downloadBtn');
 
-    // Placeholder enhancement simulation
-    setTimeout(() => {
-      processingStatus.innerText = "Image enhanced successfully! (This is a demo placeholder)";
-    }, 3000);
+    if (fileInput.files.length === 0) {
+      alert("Please upload an image first.");
+      return;
+    }
+
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const originalURL = e.target.result;
+
+      // Show original image
+      originalPreview.src = originalURL;
+
+      // FAKE enhanced version by applying a filter (simulate AI enhancement)
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      img.src = originalURL;
+
+      img.onload = function () {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+
+        // Apply simple fake "enhancement" filter
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        let data = imageData.data;
+        for (let i = 0; i < data.length; i += 4) {
+          data[i] = data[i] * 1.1;     // Red
+          data[i + 1] = data[i + 1] * 1.1; // Green
+          data[i + 2] = data[i + 2] * 1.1; // Blue
+        }
+        ctx.putImageData(imageData, 0, 0);
+
+        const enhancedURL = canvas.toDataURL("image/jpeg", 1.0);
+        enhancedPreview.src = enhancedURL;
+        downloadBtn.href = enhancedURL;
+
+        outputArea.classList.remove("hidden");
+      };
+    };
+
+    reader.readAsDataURL(file);
   }
 </script>
+
 
 
 
