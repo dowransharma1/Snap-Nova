@@ -497,73 +497,65 @@
     chatInput.value = '';
 
     // Extended chatbot conversation logic with more responses
-let reply = "Hi sir, what can I help you with today?";
+let reply = "";
 const lowerText = userText.toLowerCase();
 
-if (lowerText.includes('price') || lowerText.includes('premium')) {
-  reply = "💳 Our Premium subscription starts at just $0.99/month. It includes:
-- Ultra-HD image enhancement
-- Priority filter processing
-- Access to exclusive artistic and beauty filters
-- No watermark on downloads
-Would you like help subscribing?";
+// Initial greeting
+if (["hi", "hello", "hey"].some(word => lowerText.includes(word))) {
+  reply = "👋 Hello and welcome to Snap Nova! I'm your smart assistant. How can I help you today?\n\nYou can ask me about:\n- How to upload/edit a photo\n- Available filters\n- Premium features & pricing\n- Support & contact\n\nType a question to get started!";
+}
 
-} else if (lowerText.includes('filter') || lowerText.includes('effects')) {
-  reply = "🎨 You can apply filters like:
-- Grayscale (B/W)
-- Sepia (Vintage)
-- Brightness/Contrast boost
-- Cartoon style
-Simply upload your photo, scroll to the Filters section, and click on any filter to apply it instantly.";
+// Pricing
+else if (lowerText.includes('price') || lowerText.includes('premium')) {
+  reply = "💳 Our Premium plan starts at just $0.99/month and includes:\n✅ Ultra-HD image enhancement\n✅ Exclusive AI filters (Cartoon, Beauty, HDR)\n✅ No watermark\n✅ Early access to new features like background removal\n\nWould you like to subscribe or learn how to upgrade?";
+}
 
-} else if (lowerText.includes('upload') || lowerText.includes('start') || lowerText.includes('photo')) {
-  reply = "📤 To start editing:
-1. Click the 'Upload' tab at the top
-2. Choose an image from your device
-3. Click 'Enhance Image' to apply AI upscaling
-4. Use filters if needed, then download your final image.";
+// Filters
+else if (lowerText.includes('filter') || lowerText.includes('effects')) {
+  reply = "🎨 Available filters include:\n- Grayscale (black & white)\n- Sepia (vintage look)\n- Brightness / Contrast Boost\n- Invert / Blur\n- Cartoon (coming soon for premium)\n\nTry them after uploading a photo. Just scroll to the Filters section.";
+}
 
-} else if (lowerText.includes('contact') || lowerText.includes('support') || lowerText.includes('problem')) {
-  reply = "📞 You can reach out anytime:
-- Email: dowransharma20@gmail.com
-- WhatsApp: +977 9816715771
-We typically respond within 1 hour during working days (Sun–Fri).";
+// Upload help
+else if (lowerText.includes('upload') || lowerText.includes('start') || lowerText.includes('photo')) {
+  reply = "📤 To enhance a photo:\n1. Click the 'Upload' tab in the menu\n2. Choose any photo from your device\n3. Click 'Enhance Image' button\n4. Use filters if you like\n5. Download the final HD version";
+}
 
-} else if (lowerText.includes('help') || lowerText.includes('how to') || lowerText.includes('use')) {
-  reply = "🤖 Here to help! You can ask about:
-- Uploading or enhancing photos
-- Using filters or downloading images
-- Subscribing to Premium
-- Technical issues
+// Contact
+else if (lowerText.includes('contact') || lowerText.includes('support') || lowerText.includes('problem')) {
+  reply = "📞 You can contact our team:\n- 📧 Email: dowransharma20@gmail.com\n- 📱 WhatsApp: +977 9816715771\nWe usually reply within 1 hour (Sun–Fri).";
+}
 
-Just type what you need help with.";
+// General help
+else if (lowerText.includes('help') || lowerText.includes('how to') || lowerText.includes('use')) {
+  reply = "🛠️ I can help with:\n- Uploading or editing your photo\n- Using filters\n- Understanding premium features\n- Fixing errors or bugs\n\nJust describe your issue or question!";
+}
 
-} else if (lowerText.includes('features') || lowerText.includes('tools') || lowerText.includes('functions')) {
-  reply = "✨ Snap Nova includes:
-- AI photo enhancer (HD/Ultra HD)
-- Auto filters & artistic effects
-- Background remover (coming soon)
-- Chatbot help
-- Premium plans for creators and businesses
+// Features list
+else if (lowerText.includes('features') || lowerText.includes('tools') || lowerText.includes('functions')) {
+  reply = "🚀 Snap Nova Features:\n- AI Image Upscaling\n- Auto Filters & Enhancers\n- Background Remover (coming soon)\n- HD Preview + 1-click Download\n- Premium access & chatbot help\n\nWould you like a demo?";
+}
 
-Would you like a demo of any feature?";
+// Background removal info
+else if (lowerText.includes('background') || lowerText.includes('remove bg')) {
+  reply = "🧼 Background remover is launching soon!\nPremium users will get early access once it’s live. Stay tuned!";
+}
 
-} else if (lowerText.includes('background') || lowerText.includes('remove bg')) {
-  reply = "🧼 Background remover feature is coming soon in the next update! For now, enjoy enhancement and filters. Premium users will get early access!";
+// Watermark info
+else if (lowerText.includes('watermark')) {
+  reply = "📸 Free version images may have a light watermark.\nUpgrade to Premium to get clean, full-resolution images with no logo.";
+}
 
-} else if (lowerText.includes('watermark')) {
-  reply = "📷 Free versions may include a small watermark. Premium users get watermark-free, clean downloads. You can subscribe anytime from the Premium section.";
+// Thank you
+else if (lowerText.includes('thank')) {
+  reply = "🙏 You're very welcome! Let me know if there's anything else I can help you with.";
+}
 
-} else if (lowerText.includes('thank')) {
-  reply = "🙏 You're most welcome! If you have more questions or feedback, just type here. We're always happy to assist!";
-
-} else {
-  reply = "❓ I'm not sure I understand. Could you rephrase your question? Or contact support via email or WhatsApp.";
+// Fallback
+else {
+  reply = "🤔 Sorry, I didn’t quite understand that.\nTry asking about features, pricing, or upload help — or contact support if you need direct assistance.";
 }
 
 appendMessage(reply, 'bot');
-
-  });
 
   chatInput.addEventListener('keydown', (e) => {
     if(e.key === 'Enter') sendBtn.click();
