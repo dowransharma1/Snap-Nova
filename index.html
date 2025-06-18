@@ -445,7 +445,59 @@
       alert('Please upload an image first.');
       return;
     }
-    alert('This is a demo. AI enhancement processing coming soon!');
+    alert(<body><!-- Snap Nova Enhancer Section -->
+<section class="bg-gray-950 py-16 px-6 text-white" id="enhancer">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="text-4xl font-bold mb-4 text-yellow-400">Snap Nova Enhancer</h2>
+    <p class="text-lg mb-8 text-gray-300">Transform your low-quality photos into stunning HD images with AI magic.</p>
+
+    <div class="bg-gray-900 rounded-xl p-6 shadow-lg border border-yellow-400">
+      <input type="file" id="uploadInput" accept="image/*"
+        class="block w-full text-sm text-gray-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-400 file:text-black hover:file:bg-yellow-300 cursor-pointer mb-6" />
+
+      <div id="previewContainer" class="mb-6 hidden">
+        <h3 class="text-xl font-semibold mb-2">Preview:</h3>
+        <img id="previewImage" src="" alt="Uploaded Image" class="w-full max-w-md mx-auto rounded shadow-md" />
+      </div>
+
+      <button onclick="enhanceImage()"
+        class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-6 rounded-full transition duration-300">
+        Enhance Image
+      </button>
+
+      <p id="processingStatus" class="mt-6 text-green-400 font-medium hidden">Processing image with AI...</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const uploadInput = document.getElementById("uploadInput");
+  const previewContainer = document.getElementById("previewContainer");
+  const previewImage = document.getElementById("previewImage");
+  const processingStatus = document.getElementById("processingStatus");
+
+  uploadInput.addEventListener("change", function () {
+    const file = uploadInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        previewImage.src = e.target.result;
+        previewContainer.classList.remove("hidden");
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  function enhanceImage() {
+    processingStatus.classList.remove("hidden");
+
+    // Placeholder enhancement simulation
+    setTimeout(() => {
+      processingStatus.innerText = "Image enhanced successfully! (This is a demo placeholder)";
+    }, 3000);
+  }
+</script>
+
   });
 
   // 5-star rating
