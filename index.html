@@ -366,6 +366,25 @@
     <button id="processBtn">Enhance Image</button>
     <img id="preview" src="" alt="Preview will appear here" style="display:none;" />
   </section>
+<img id="preview" src="#" alt="Enhanced Image" />
+<button onclick="downloadImage()">Download Image</button>
+  <script>
+function downloadImage() {
+  const img = document.getElementById("preview");
+  if (!img || !img.src || img.src === "#") {
+    alert("Please upload and enhance an image first.");
+    return;
+  }
+  const link = document.createElement("a");
+  link.href = img.src;
+  link.download = "SnapNova_Enhanced_Image.png";
+  link.click();
+}
+</script>
+</body>
+</html>
+
+
 
   <section id="filters-section">
     <h2>Apply Filters</h2>
