@@ -366,44 +366,8 @@
     <button id="processBtn">Enhance Image</button>
     <img id="preview" src="" alt="Preview will appear here" style="display:none;" />
   </section>
-<!-- ✅ Download Image Button -->
-<button id="downloadBtn" style="
-  margin-top: 20px;
-  padding: 12px 25px;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(to right, #ffcc00, #ff9900);
-  color: #000;
-  cursor: pointer;
-  box-shadow: 0 0 12px rgba(255, 200, 0, 0.4);
-">
-  ⬇️ Download Image
-</button>
-<button id="downloadBtn" style="...">⬇️ Download Image</button>
+<button onclick="downloadImage()" style="margin-top:20px;padding:12px 25px;font-size:16px;font-weight:bold;border:none;border-radius:10px;background:linear-gradient(to right,#ffcc00,#ff9900);color:#000;cursor:pointer;box-shadow:0 0 12px rgba(255,200,0,0.4);">⬇️ Download Image</button><script>function downloadImage(){const link=document.createElement('a');link.href='your-image-path.jpg';link.download='SnapNova_Image.png';document.body.appendChild(link);link.click();document.body.removeChild(link);}</script>
 
-<img id="preview" src="your-image.jpg" alt="Enhanced Image" style="max-width: 100%;" />
-
-<script>
-  document.getElementById("downloadBtn").addEventListener("click", function () {
-    const image = document.getElementById("preview");
-    if (!image || !image.src) {
-      alert("❌ No image to download!");
-      return;
-    }
-
-    const link = document.createElement("a");
-    link.href = image.src;
-    link.download = "SnapNova_Enhanced_Image.png";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  });
-</script>
-
-</body>
-</html>
 
 
 
