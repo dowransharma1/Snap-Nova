@@ -366,19 +366,35 @@
     <button id="processBtn">Enhance Image</button>
     <img id="preview" src="" alt="Preview will appear here" style="display:none;" />
   </section>
-<main>
-  <section id="upload-section">
-    <h2>Upload Your Photo to Enhance</h2>
-    <input type="file" accept="image/*" id="imageUpload" />
-    <br />
-    <button id="processBtn">Enhance Image</button>
-    <img id="preview" src="" alt="Preview will appear here" style="display:none;" />
+<script>
+const preview = document.getElementById("preview");
+const downloadBtn = document.getElementById("downloadBtn");
 
-    <!-- ✅ Download Button (Paste here) -->
-    <button onclick="downloadImage()" id="downloadBtn" style="margin-top: 15px; padding: 10px 20px; background: gold; color: black; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; display: none;">
-      Download Image
-    </button>
-  </section>
+function downloadImage() {
+  if (!preview.src) {
+    alert("No image to download.");
+    return;
+  }
+  const link = document.createElement("a");
+  link.href = preview.src;
+  link.download = "SnapNova_Enhanced_Image.png";
+  link.click();
+}
+
+document.getElementById("processBtn").addEventListener("click", () => {
+  // Simulate enhancement (you can replace this with real logic/API)
+  const file = document.getElementById("imageUpload").files[0];
+  if (!file) return alert("Please upload an image.");
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    preview.src = e.target.result;
+    preview.style.display = "block";
+    downloadBtn.style.display = "inline-block";
+  };
+  reader.readAsDataURL(file);
+});
+</script>
+
 
 
 
