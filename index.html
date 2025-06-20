@@ -366,23 +366,20 @@
     <button id="processBtn">Enhance Image</button>
     <img id="preview" src="" alt="Preview will appear here" style="display:none;" />
   </section>
-<img id="preview" src="#" alt="Enhanced Image" />
-<button onclick="downloadImage()">Download Image</button>
-  <script>
-function downloadImage() {
-  const img = document.getElementById("preview");
-  if (!img || !img.src || img.src === "#") {
-    alert("Please upload and enhance an image first.");
-    return;
-  }
-  const link = document.createElement("a");
-  link.href = img.src;
-  link.download = "SnapNova_Enhanced_Image.png";
-  link.click();
-}
-</script>
-</body>
-</html>
+<main>
+  <section id="upload-section">
+    <h2>Upload Your Photo to Enhance</h2>
+    <input type="file" accept="image/*" id="imageUpload" />
+    <br />
+    <button id="processBtn">Enhance Image</button>
+    <img id="preview" src="" alt="Preview will appear here" style="display:none;" />
+
+    <!-- ✅ Download Button (Paste here) -->
+    <button onclick="downloadImage()" id="downloadBtn" style="margin-top: 15px; padding: 10px 20px; background: gold; color: black; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; display: none;">
+      Download Image
+    </button>
+  </section>
+
 
 
 
